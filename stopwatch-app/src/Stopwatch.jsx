@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-// Format the elapsed time (in milliseconds) into a string
 const formatTime = (ms) => {
   const totalSeconds = Math.floor(ms / 1000);
   const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
@@ -11,58 +10,52 @@ const formatTime = (ms) => {
 };
 
 const Stopwatch = () => {
-  const [elapsed, setElapsed] = useState(0); // Store the elapsed time in state
-  const [running, setRunning] = useState(false); // Track if the stopwatch is running
-  const [laps, setLaps] = useState([]); // Store recorded lap times
-  const [bestTime, setBestTime] = useState(null); // Store the best time
+  const [elapsed, setElapsed] = useState(0); 
+  const [running, setRunning] = useState(false); 
+  const [laps, setLaps] = useState([]); 
+  const [bestTime, setBestTime] = useState(null); 
 
-  const startTimeRef = useRef(0); // Ref to store the starting time
-  const intervalRef = useRef(null); // Ref to store the interval ID
+  const startTimeRef = useRef(0); 
+  const intervalRef = useRef(null); 
 
-  // Update the elapsed time on each tick
   const update = () => {
     const currentTime = Date.now();
-    setElapsed(currentTime - startTimeRef.current); // Calculate elapsed time
+    setElapsed(currentTime - startTimeRef.current); 
   };
 
-  // Start the stopwatch
   const start = () => {
     if (!running) {
-      startTimeRef.current = Date.now() - elapsed; // Set the start time
-      setRunning(true); // Mark the stopwatch as running
-      intervalRef.current = setInterval(update, 10); // Update every 10ms
+      startTimeRef.current = Date.now() - elapsed; 
+      setRunning(true); 
+      intervalRef.current = setInterval(update, 10); 
     }
   };
 
-  // Stop the stopwatch
   const stop = () => {
     if (running) {
-      setRunning(false); // Mark the stopwatch as stopped
-      clearInterval(intervalRef.current); // Stop the interval
+      setRunning(false); 
+      clearInterval(intervalRef.current); 
     }
   };
 
-  // Reset the stopwatch
+  
   const reset = () => {
-    stop(); // Stop the stopwatch before resetting
-    setElapsed(0); // Reset the elapsed time
-    setLaps([]); // Clear the laps
-    setBestTime(null); // Reset the best time
+    stop(); 
+    setElapsed(0); 
+    setLaps([]); 
+    setBestTime(null); 
   };
 
-  // Record a lap time
   const recordLap = () => {
     const newLap = elapsed;
-    setLaps([...laps, newLap]); // Add new lap to the laps array
+    setLaps([...laps, newLap]); 
 
-    // Update the best time
     if (bestTime === null || newLap < bestTime) {
-      setBestTime(newLap); // Set the new best time if it's faster
+      setBestTime(newLap); 
     }
   };
 
   useEffect(() => {
-    // Clean up the interval when the component unmounts
     return () => clearInterval(intervalRef.current);
   }, []);
 
@@ -70,7 +63,7 @@ const Stopwatch = () => {
     <div style={styles.container}>
       {/* Watch image background */}
       <div style={styles.watchImageContainer}>
-        <img src="/watch.png" alt="Stopwatch" style={styles.watchImage} />
+        <img src="/https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2Fdownload-premium-png-of-black-watch-screen-template-transparent-png-by-eye-about-smart-watcch-png-smar--971159107125749648%2F&psig=AOvVaw2g5DHNKohuUl3Naud9wV5r&ust=1745830255470000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPiAttvq94wDFQAAAAAdAAAAABAE" alt="Stopwatch" style={styles.watchImage} />
       </div>
 
       <div style={styles.time}>{formatTime(elapsed)}</div>
@@ -119,7 +112,7 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'relative', // To position the watch image inside the container
+    position: 'relative', 
   },
   watchImageContainer: {
     position: 'absolute',
@@ -130,12 +123,12 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: -1, // Ensure the image is behind the stopwatch controls
+    zIndex: -1, 
   },
   watchImage: {
-    width: '80%', // Adjust this value to resize the image as needed
+    width: '80%', 
     maxWidth: '500px',
-    opacity: 0.6, // Add opacity to the background image if needed
+    opacity: 0.6, 
   },
   time: {
     fontSize: '3em',
